@@ -1,0 +1,63 @@
+<project name="velovalidator" default="dist" basedir=".">
+    <description>
+        simple example build file
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+  <property name="dist"  location="dist"/>
+  <property name="lib"  location="lib"/>
+
+    <path id="compile.classpath">
+        <fileset dir="${lib}" includes="*.jar"/>
+    </path>
+
+    <pathconvert property="mf.classpath" pathsep=" ">
+        <path refid="compile.classpath"/>
+        <mapper>
+            <chainedmapper>
+                <flattenmapper/>
+                <globmapper from="*.jar" to="*.jar"/>
+            </chainedmapper>
+        </mapper>
+    </pathconvert>
+
+    <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+  </target>
+
+    <target name="compile" depends="init"
+            description="compile the source ">
+        <!-- Compile the java code from ${src} into ${build} -->
+        <javac srcdir="${src}" destdir="${build}">
+            <classpath refid="compile.classpath"/>
+        </javac>
+    </target>
+
+  <target name="dist" depends="clean,compile"
+        description="generate the distribution" >
+
+       <mkdir dir="${dist}"/>
+       <copy todir="${dist}">
+           <fileset dir="${lib}"/>
+       </copy>
+      <copy file="properties.conf" todir="${dist}"/>
+      <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+
+      <manifest file="manifest.mf">
+          <attribute name="Main-Class" value="com.ivitera.velocity.validator.Main"/>
+          <attribute name="Class-Path" value="${mf.classpath}"/>
+      </manifest>
+      <jar jarfile="${dist}/velovalidator.jar" basedir="${build}" manifest="manifest.mf"/>
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+</project>

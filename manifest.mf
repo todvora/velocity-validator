@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 10.0-b23 (Sun Microsystems Inc.)
+Main-Class: com.ivitera.velocity.validator.Main
+Class-Path: commons-collections-3.2.1.jar log4j-1.2.15.jar velocity-1.
+ 6.4-dep.jar velocity-1.6.4.jar
+
