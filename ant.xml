@@ -1,4 +1,4 @@
-<project name="velovalidator" default="dist" basedir=".">
+<project name="velocityvalidator" default="dist" basedir=".">
     <description>
         simple example build file
     </description>
@@ -51,7 +51,7 @@
           <attribute name="Main-Class" value="com.ivitera.velocity.validator.Main"/>
           <attribute name="Class-Path" value="${mf.classpath}"/>
       </manifest>
-      <jar jarfile="${dist}/velovalidator.jar" basedir="${build}" manifest="manifest.mf"/>
+      <jar jarfile="${dist}/velocityvalidator.jar" basedir="${build}" manifest="manifest.mf"/>
   </target>
 
   <target name="clean"

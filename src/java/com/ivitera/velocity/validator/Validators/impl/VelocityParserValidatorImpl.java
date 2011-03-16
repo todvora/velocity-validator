@@ -8,8 +8,7 @@ import org.apache.velocity.runtime.parser.ParseException;
 
 import java.io.*;
 
-public enum VelocityParserValidatorImpl implements Validator {
-    INSTANCE;
+public class VelocityParserValidatorImpl implements Validator {
 
     public void validate(String filename) throws ValidationException, FileNotFoundException  {
         validate(new File(filename));

@@ -12,7 +12,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        if (args.length < 2) {
+        if (args.length < 1) {
             printUsage();
             System.exit(1);
         }
@@ -29,7 +29,7 @@ public class Main {
         });
 
         try {
-            ValidatorsService.init(new File(args[1]));
+            ValidatorsService.init(args.length > 1 ? new File(args[1]) : null);
         } catch (Exception e) {
             throw new InitializationException(e);
         }
@@ -56,6 +56,6 @@ public class Main {
 
 
     private static void printUsage() {
-        System.out.println("Usage: java -jar velovalidator.jar path_to_templates path_to_config_file");
+        System.out.println("Usage: java -jar velovalidator.jar path_to_templates [path_to_config_file]");
     }
 }

@@ -12,9 +12,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-public enum RegexValidatorImpl implements Validator {
-
-    INSTANCE;
+public class RegexValidatorImpl implements Validator {
 
     private boolean enabled = false;
 
@@ -26,6 +24,11 @@ public enum RegexValidatorImpl implements Validator {
     }
 
     public void validate(File file) throws Exception {
+
+        if(!enabled) {
+            return;
+        }
+
         for (Pattern pattern : patterns) {
             List<String> lines = FileUtils.readLines(file);
             String text = StringUtils.join(lines, LINES_DELIMITER);
@@ -42,6 +45,12 @@ public enum RegexValidatorImpl implements Validator {
     }
 
     public void init(File config) throws InitializationException {
+
+        if (config == null) {
+            enabled = false;
+            return;
+        }
+
         try {
             List<String> lines = FileUtils.readLines(config);
             patterns.clear();

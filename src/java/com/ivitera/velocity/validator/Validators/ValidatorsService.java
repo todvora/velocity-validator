@@ -14,8 +14,8 @@ public class ValidatorsService {
     private static final List<Validator> ALL_VALIDATORS = Lists.arrayList();
 
     static {
-        ALL_VALIDATORS.add(VelocityParserValidatorImpl.INSTANCE);
-        ALL_VALIDATORS.add(RegexValidatorImpl.INSTANCE);
+        ALL_VALIDATORS.add(new VelocityParserValidatorImpl());
+        ALL_VALIDATORS.add(new RegexValidatorImpl());
     }
 
     public static void init(File config) throws Exception {
