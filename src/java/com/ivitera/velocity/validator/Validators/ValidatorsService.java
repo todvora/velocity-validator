@@ -11,12 +11,11 @@ public class ValidatorsService {
 
     private static boolean initialized = false;
 
-    private static final List<Validator> ALL_VALIDATORS = Lists.arrayList();
+    private static final List<? extends Validator> ALL_VALIDATORS = Lists.arrayList(
+            new VelocityParserValidatorImpl(),
+            new RegexValidatorImpl()
+    );
 
-    static {
-        ALL_VALIDATORS.add(new VelocityParserValidatorImpl());
-        ALL_VALIDATORS.add(new RegexValidatorImpl());
-    }
 
     public static void init(File config) throws Exception {
         for(Validator v : ALL_VALIDATORS) {
@@ -26,7 +25,7 @@ public class ValidatorsService {
     }
 
 
-    public static List<Validator> getAllValidators(){
+    public static List<? extends Validator> getAllValidators(){
         if(!initialized) {
             throw new RuntimeException("Service not initialized!");
         }

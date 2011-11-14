@@ -1,8 +1,8 @@
 package com.ivitera.velocity.validator.Validators.impl;
 
 import com.ivitera.velocity.validator.Validators.Validator;
+import com.ivitera.velocity.validator.exceptions.InitializationException;
 import com.ivitera.velocity.validator.exceptions.ValidationException;
-import org.apache.log4j.Logger;
 import org.apache.velocity.runtime.RuntimeSingleton;
 import org.apache.velocity.runtime.parser.ParseException;
 
@@ -23,11 +23,11 @@ public class VelocityParserValidatorImpl implements Validator {
         }
     }
 
-    public void init(File config) {
+    public void init(File config) throws InitializationException {
         try {
             RuntimeSingleton.init();
         } catch (Exception e) {
-            Logger.getLogger(this.getClass()).error(e);
+            throw new InitializationException("Failed to init VelocityParserValidator", e);
         }
     }
 }
