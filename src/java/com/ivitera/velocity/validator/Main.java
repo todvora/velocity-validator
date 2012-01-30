@@ -25,7 +25,7 @@ public class Main {
     }
 
     private static void doRun(String[] args) throws FileNotFoundException, InitializationException {
-        if (args.length < 1 || args.length > 2) {
+        if (args.length < 1 || args.length > 3) {
             printUsage();
             System.exit(1);
         }
@@ -35,6 +35,21 @@ public class Main {
             baseDir = baseDir + "/";
         }
 
+        boolean verbose = false;
+
+        String additionalRulesFile = null;
+
+        for(String arg : args) {
+            if("-verbose".equals(arg)) {
+                verbose = true;
+                System.out.println("Verbose mode on");
+            }
+
+            if(arg.startsWith("-rules=")) {
+                additionalRulesFile = arg.replace("-rules=", "");
+            }
+        }
+
         List<File> files = PathSearcher.getFileListing(new File(baseDir), new FileFilter() {
             public boolean accept(File file) {
                 return file.getAbsolutePath().endsWith(".vm");
@@ -42,7 +57,7 @@ public class Main {
         });
 
         try {
-            ValidatorsService.init(args.length > 1 ? new File(args[1]) : null);
+            ValidatorsService.init(additionalRulesFile != null ? new File(additionalRulesFile) : null);
         } catch (Exception e) {
             throw new InitializationException(e);
         }
@@ -54,11 +69,20 @@ public class Main {
             for (File f : files) {
                 try {
                     validator.validate(f);
+                    if(verbose) {
+                        System.out.println("File OK: " + f.getAbsolutePath().replace(baseDir, "./"));
+                    }
                 } catch (Exception e) {
                     errors++;
                     System.err.println("Error in file " + f.getAbsolutePath().replace(baseDir, "./"));
                     System.err.println("    " + e.getMessage().replace(baseDir, "./").replace("\n", "\n    "));
                 }
+            }
+        }
+        if(verbose) {
+            System.out.println("Checked " + files.size() + " files");
+            if(errors == 0) {
+                System.out.println("No errors found in given path");
             }
         }
         if (errors > 0) {
@@ -69,6 +93,6 @@ public class Main {
 
 
     private static void printUsage() {
-        System.out.println("Usage: java -jar velovalidator.jar path_to_templates [path_to_config_file]");
+        System.out.println("Usage: java -jar velovalidator.jar path_to_templates [-rules=path_to_config_file] [-verbose]");
     }
 }
