@@ -30,13 +30,8 @@ public class Main {
             System.exit(1);
         }
 
-        String baseDir = args[0];
-        if(!baseDir.endsWith("/")) {
-            baseDir = baseDir + "/";
-        }
-
+        String baseDir = null;
         boolean verbose = false;
-
         String additionalRulesFile = null;
 
         for(String arg : args) {
@@ -48,6 +43,15 @@ public class Main {
             if(arg.startsWith("-rules=")) {
                 additionalRulesFile = arg.replace("-rules=", "");
             }
+
+            if(!arg.startsWith("-")) {
+                baseDir = arg;
+            }
+        }
+
+
+        if(!baseDir.endsWith("/")) {
+            baseDir = baseDir + "/";
         }
 
         List<File> files = PathSearcher.getFileListing(new File(baseDir), new FileFilter() {
