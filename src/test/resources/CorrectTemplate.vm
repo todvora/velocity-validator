@@ -1,0 +1,6 @@
+###UTF-8
+
+#if($variable)
+ OK
+#end
+

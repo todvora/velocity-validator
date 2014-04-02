@@ -1,0 +1,6 @@
+###UTF-8
+
+#if($variable)
+#end
+## one more end, with no opening tag
+#end

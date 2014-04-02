@@ -1,0 +1,7 @@
+###UTF-8
+
+#if($variable)
+    $variable
+
+## commented out end
+## #end

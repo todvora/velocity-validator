@@ -19,11 +19,11 @@ public class RegexValidatorImpl implements Validator {
     private static List<Pattern> patterns = Lists.arrayList();
     private static final String LINES_DELIMITER = "\n";
 
-    public void validate(String filename) throws Exception {
+    public void validate(String filename) throws IOException, ValidationException {
         validate(new File(filename));
     }
 
-    public void validate(File file) throws Exception {
+    public void validate(File file) throws ValidationException, IOException {
 
         if(!enabled) {
             return;
