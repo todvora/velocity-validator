@@ -1,0 +1,10 @@
+###UTF-8
+
+#if($variable)
+    ## foreach notation used in PHP - http://www.php.net/manual/en/control-structures.foreach.php
+    ## not valid in velocity (correct is $item in $list)
+    #foreach($list as $item)
+        ${item}
+    #end
+#end
+
