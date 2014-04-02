@@ -1,6 +1,6 @@
-package com.ivitera.velocity.validator.Validators.impl;
+package com.ivitera.velocity.validator.validators.impl;
 
-import com.ivitera.velocity.validator.Validators.Validator;
+import com.ivitera.velocity.validator.validators.Validator;
 import com.ivitera.velocity.validator.exceptions.InitializationException;
 import com.ivitera.velocity.validator.exceptions.ValidationException;
 import org.apache.velocity.runtime.RuntimeSingleton;

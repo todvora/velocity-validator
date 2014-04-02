@@ -1,4 +1,4 @@
-package com.ivitera.velocity.validator.Validators;
+package com.ivitera.velocity.validator.validators;
 
 import com.ivitera.velocity.validator.exceptions.InitializationException;
 

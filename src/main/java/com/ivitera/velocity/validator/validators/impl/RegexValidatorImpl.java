@@ -1,6 +1,6 @@
-package com.ivitera.velocity.validator.Validators.impl;
+package com.ivitera.velocity.validator.validators.impl;
 
-import com.ivitera.velocity.validator.Validators.Validator;
+import com.ivitera.velocity.validator.validators.Validator;
 import com.ivitera.velocity.validator.utils.Lists;
 import com.ivitera.velocity.validator.utils.StringUtils;
 import com.ivitera.velocity.validator.utils.FileUtils;

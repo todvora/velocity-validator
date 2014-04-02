@@ -1,7 +1,7 @@
-package com.ivitera.velocity.validator.Validators;
+package com.ivitera.velocity.validator.validators;
 
-import com.ivitera.velocity.validator.Validators.impl.RegexValidatorImpl;
-import com.ivitera.velocity.validator.Validators.impl.VelocityParserValidatorImpl;
+import com.ivitera.velocity.validator.validators.impl.RegexValidatorImpl;
+import com.ivitera.velocity.validator.validators.impl.VelocityParserValidatorImpl;
 import com.ivitera.velocity.validator.utils.Lists;
 
 import java.io.File;

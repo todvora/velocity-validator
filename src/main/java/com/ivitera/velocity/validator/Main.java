@@ -1,7 +1,7 @@
 package com.ivitera.velocity.validator;
 
-import com.ivitera.velocity.validator.Validators.Validator;
-import com.ivitera.velocity.validator.Validators.ValidatorsService;
+import com.ivitera.velocity.validator.validators.Validator;
+import com.ivitera.velocity.validator.validators.ValidatorsService;
 import com.ivitera.velocity.validator.exceptions.InitializationException;
 import com.ivitera.velocity.validator.utils.PathSearcher;
 import org.apache.log4j.Logger;
