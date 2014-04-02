@@ -1,22 +1,23 @@
 package com.ivitera.velocity.validator.validators.impl;
 
-import com.ivitera.velocity.validator.validators.Validator;
-import com.ivitera.velocity.validator.utils.Lists;
-import com.ivitera.velocity.validator.utils.StringUtils;
-import com.ivitera.velocity.validator.utils.FileUtils;
-import com.ivitera.velocity.validator.exceptions.ValidationException;
 import com.ivitera.velocity.validator.exceptions.InitializationException;
+import com.ivitera.velocity.validator.exceptions.ValidationException;
+import com.ivitera.velocity.validator.utils.FileUtils;
+import com.ivitera.velocity.validator.utils.StringUtils;
+import com.ivitera.velocity.validator.validators.Validator;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegexValidatorImpl implements Validator {
 
     private boolean enabled = false;
 
-    private static List<Pattern> patterns = Lists.arrayList();
+    private static List<Pattern> patterns = new ArrayList<>();
     private static final String LINES_DELIMITER = "\n";
 
     public void validate(String filename) throws IOException, ValidationException {

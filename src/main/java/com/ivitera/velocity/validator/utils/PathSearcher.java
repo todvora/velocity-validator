@@ -19,7 +19,7 @@ public class PathSearcher {
 
     private static List<File> getFileListingNoSort(File aStartingDir, FileFilter filter)
             throws FileNotFoundException {
-        List<File> result = new ArrayList<File>();
+        List<File> result = new ArrayList<>();
         File[] filesAndDirs = aStartingDir.listFiles();
         if (filesAndDirs != null) {
             List<File> filesDirs = Arrays.asList(filesAndDirs);
