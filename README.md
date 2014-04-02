@@ -1,5 +1,6 @@
 Java tool for validating apache velocity templates
 ====================
+[![Build Status](https://travis-ci.org/todvora/velocity-validator.svg?branch=master)](https://travis-ci.org/todvora/velocity-validator)
 
 Purpose
 ---------------------
