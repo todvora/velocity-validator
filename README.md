@@ -119,3 +119,9 @@ And output should look like:
             
     Done, Found 3 errors
 
+How to build project
+--------------------
+This project is based on [Maven](https://maven.apache.org/). You will need to have installed JDK and Maven.
+Then simply run
+```mvn package``` and in project directory ```target/dist``` will be created jar with validator.
+Directory ```target/dist/lib``` contains all project dependencies.
