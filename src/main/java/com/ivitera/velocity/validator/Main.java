@@ -37,7 +37,7 @@ public class Main {
         for(String arg : args) {
             if("-verbose".equals(arg)) {
                 verbose = true;
-                System.out.println("Verbose mode on");
+                log.info("Verbose mode on");
             }
 
             if(arg.startsWith("-rules=")) {
@@ -49,6 +49,10 @@ public class Main {
             }
         }
 
+
+        if(baseDir == null) {
+            baseDir = System.getProperty("user.dir");
+        }
 
         if(!baseDir.endsWith("/")) {
             baseDir = baseDir + "/";
@@ -74,29 +78,29 @@ public class Main {
                 try {
                     validator.validate(f);
                     if(verbose) {
-                        System.out.println("File OK: " + f.getAbsolutePath().replace(baseDir, "./"));
+                        log.info("File OK: " + f.getAbsolutePath().replace(baseDir, "./"));
                     }
                 } catch (Exception e) {
                     errors++;
-                    System.err.println("Error in file " + f.getAbsolutePath().replace(baseDir, "./"));
-                    System.err.println("    " + e.getMessage().replace(baseDir, "./").replace("\n", "\n    "));
+                    log.error("Error in file " + f.getAbsolutePath().replace(baseDir, "./"));
+                    log.error("    " + e.getMessage().replace(baseDir, "./").replace("\n", "\n    "));
                 }
             }
         }
         if(verbose) {
-            System.out.println("Checked " + files.size() + " files");
+            log.info("Checked " + files.size() + " files");
             if(errors == 0) {
-                System.out.println("No errors found in given path");
+                log.info("No errors found in given path");
             }
         }
         if (errors > 0) {
-            System.err.println("Done, Found " + errors + " errors");
+            log.error("Done, Found " + errors + " errors");
             System.exit(1);
         }
     }
 
 
     private static void printUsage() {
-        System.out.println("Usage: java -jar velovalidator.jar path_to_templates [-rules=path_to_config_file] [-verbose]");
+        log.info("Usage: java -jar velovalidator.jar path_to_templates [-rules=path_to_config_file] [-verbose]");
     }
 }
