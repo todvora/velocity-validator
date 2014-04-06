@@ -1,14 +1,11 @@
 package com.ivitera.velocity.validator;
 
 import com.ivitera.velocity.validator.exceptions.InputParamsException;
-import org.apache.log4j.Logger;
 
 import java.io.File;
 
 
 class ParamsParser {
-
-    private static final Logger log = Logger.getLogger(ParamsParser.class);
 
     private String[] args;
     private boolean verbose;
@@ -31,45 +28,48 @@ class ParamsParser {
         return baseDirFile;
     }
 
-    public ParamsParser invoke() throws InputParamsException {
-        if (args.length < 1 || args.length > 3) {
+    public ParamsParser parse() throws InputParamsException {
+        if (args.length > 3) {
             throw new InputParamsException();
         }
 
-        String baseDirPath = null;
+        String templatesPath = null;
         verbose = false;
-        String additionalRulesFile = null;
+        String regexRulesPath = null;
 
-        for(String arg : args) {
-            if("-verbose".equals(arg)) {
+        for (String arg : args) {
+            if ("-verbose".equals(arg)) {
                 verbose = true;
-                log.info("Verbose mode on");
+                continue;
             }
 
-            if(arg.startsWith("-rules=")) {
-                additionalRulesFile = arg.replace("-rules=", "");
+            if (arg.startsWith("-rules=")) {
+                regexRulesPath = arg.replace("-rules=", "");
+                continue;
             }
 
-            if(!arg.startsWith("-")) {
-                baseDirPath = arg;
+            if (!arg.startsWith("-")) {
+                templatesPath = arg;
+                continue;
+            } else {
+                throw new InputParamsException("Unknown param: " + arg);
             }
         }
 
-
-        if(baseDirPath == null) {
-            baseDirPath = System.getProperty("user.dir");
+        if (templatesPath == null) {
+            templatesPath = System.getProperty("user.dir");
         }
 
-        if(!baseDirPath.endsWith("/")) {
-            baseDirPath = baseDirPath + "/";
+        if (!templatesPath.endsWith("/")) {
+            templatesPath = templatesPath + "/";
         }
 
         configFile = null;
-        if(additionalRulesFile != null) {
-            configFile = new File(additionalRulesFile);
+        if (regexRulesPath != null) {
+            configFile = new File(regexRulesPath);
         }
 
-        baseDirFile = new File(baseDirPath);
+        baseDirFile = new File(templatesPath);
         return this;
     }
 }

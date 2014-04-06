@@ -24,7 +24,7 @@ public class Main {
     private static void doRun(String[] args) throws FileNotFoundException, InitializationException {
         ParamsParser paramsParser = null;
         try {
-            paramsParser = new ParamsParser(args).invoke();
+            paramsParser = new ParamsParser(args).parse();
         } catch (InputParamsException e) {
             log.error("Usage: java -jar velocity-validator-1.0.jar path_to_templates [-rules=path_to_config_file] [-verbose]");
             System.exit(1);

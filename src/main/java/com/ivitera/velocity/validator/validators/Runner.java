@@ -26,6 +26,11 @@ public class Runner {
 
 
     public boolean run() throws FileNotFoundException, InitializationException {
+
+        if(verbose) {
+            log.info("verbose mode is ON");
+        }
+
         List<File> files = PathSearcher.getFileListing(baseDir, new FileFilter() {
             public boolean accept(File file) {
                 return file.getAbsolutePath().endsWith(".vm");
