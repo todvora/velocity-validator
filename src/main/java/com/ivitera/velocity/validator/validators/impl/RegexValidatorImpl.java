@@ -70,6 +70,11 @@ public class RegexValidatorImpl implements Validator {
         }
     }
 
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
     private ValidationException createException(String file, Pattern pattern, String found,
                                                 int line, int column) throws ValidationException {
         return new ValidationException(

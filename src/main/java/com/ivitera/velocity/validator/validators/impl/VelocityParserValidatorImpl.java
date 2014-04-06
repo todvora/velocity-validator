@@ -30,4 +30,9 @@ public class VelocityParserValidatorImpl implements Validator {
             throw new InitializationException("Failed to init VelocityParserValidator", e);
         }
     }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
