@@ -1,5 +1,6 @@
 package com.ivitera.velocity.validator;
 
+import com.ivitera.velocity.validator.exceptions.InputParamsException;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -18,10 +19,6 @@ class ParamsParser {
         this.args = args;
     }
 
-    private static void printUsage() {
-        log.info("Usage: java -jar velovalidator.jar path_to_templates [-rules=path_to_config_file] [-verbose]");
-    }
-
     public boolean isVerbose() {
         return verbose;
     }
@@ -34,10 +31,9 @@ class ParamsParser {
         return baseDirFile;
     }
 
-    public ParamsParser invoke() {
+    public ParamsParser invoke() throws InputParamsException {
         if (args.length < 1 || args.length > 3) {
-            printUsage();
-            System.exit(1);
+            throw new InputParamsException();
         }
 
         String baseDirPath = null;

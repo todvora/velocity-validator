@@ -1,7 +1,6 @@
 package com.ivitera.velocity.validator.exceptions;
 
 public class InputParamsException extends Exception {
-    public InputParamsException(String message) {
-        super(message);
+    public InputParamsException() {
     }
 }

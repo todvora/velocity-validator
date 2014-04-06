@@ -1,6 +1,7 @@
 package com.ivitera.velocity.validator;
 
 import com.ivitera.velocity.validator.exceptions.InitializationException;
+import com.ivitera.velocity.validator.exceptions.InputParamsException;
 import com.ivitera.velocity.validator.validators.Runner;
 import org.apache.log4j.Logger;
 
@@ -21,14 +22,21 @@ public class Main {
     }
 
     private static void doRun(String[] args) throws FileNotFoundException, InitializationException {
-        ParamsParser paramsParser = new ParamsParser(args).invoke();
+        ParamsParser paramsParser = null;
+        try {
+            paramsParser = new ParamsParser(args).invoke();
+        } catch (InputParamsException e) {
+            log.error("Usage: java -jar velocity-validator-1.0.jar path_to_templates [-rules=path_to_config_file] [-verbose]");
+            System.exit(1);
+        }
         File configFile = paramsParser.getConfigFile();
         File baseDirFile = paramsParser.getBaseDirFile();
         boolean verbose = paramsParser.isVerbose();
 
         Runner runner = new Runner(configFile, baseDirFile, verbose);
-        boolean hasErrors = runner.run();
-        if(hasErrors) {
+        boolean allFilesOk = runner.run();
+        if(!allFilesOk) {
+            // return code indicates, that there is incorrect template (uses CI server for test result)
             System.exit(1);
         }
     }
