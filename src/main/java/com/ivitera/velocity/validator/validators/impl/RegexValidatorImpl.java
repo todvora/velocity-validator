@@ -2,12 +2,14 @@ package com.ivitera.velocity.validator.validators.impl;
 
 import com.ivitera.velocity.validator.exceptions.InitializationException;
 import com.ivitera.velocity.validator.exceptions.ValidationException;
-import com.ivitera.velocity.validator.utils.FileUtils;
 import com.ivitera.velocity.validator.utils.StringUtils;
 import com.ivitera.velocity.validator.validators.Validator;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -20,18 +22,14 @@ public class RegexValidatorImpl implements Validator {
     private static List<Pattern> patterns = new ArrayList<>();
     private static final String LINES_DELIMITER = "\n";
 
-    public void validate(String filename) throws IOException, ValidationException {
-        validate(new File(filename));
-    }
-
     public void validate(File file) throws ValidationException, IOException {
 
         if(!enabled) {
             return;
         }
 
+        List<String> lines = Files.readAllLines(Paths.get(file.getAbsolutePath()), StandardCharsets.UTF_8);
         for (Pattern pattern : patterns) {
-            List<String> lines = FileUtils.readLines(file);
             String text = StringUtils.join(lines, LINES_DELIMITER);
             Matcher matcher = pattern.matcher(text);
             if (matcher.find()) {
@@ -53,7 +51,7 @@ public class RegexValidatorImpl implements Validator {
         }
 
         try {
-            List<String> lines = FileUtils.readLines(config);
+            List<String> lines = Files.readAllLines(Paths.get(config.getAbsolutePath()), StandardCharsets.UTF_8);
             patterns.clear();
             enabled = false;
             for (String line : lines) {

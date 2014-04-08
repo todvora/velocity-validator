@@ -1,22 +1,24 @@
 package com.ivitera.velocity.validator.validators.impl;
 
-import com.ivitera.velocity.validator.validators.Validator;
 import com.ivitera.velocity.validator.exceptions.InitializationException;
 import com.ivitera.velocity.validator.exceptions.ValidationException;
+import com.ivitera.velocity.validator.validators.Validator;
 import org.apache.velocity.runtime.RuntimeSingleton;
 import org.apache.velocity.runtime.parser.ParseException;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class VelocityParserValidatorImpl implements Validator {
 
-    public void validate(String filename) throws ValidationException, FileNotFoundException  {
-        validate(new File(filename));
-    }
-
-    public void validate(File file) throws ValidationException, FileNotFoundException {
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+    public void validate(File file) throws ValidationException, IOException {
+        try (
+                BufferedReader br = Files.newBufferedReader(Paths.get(file.getAbsolutePath()), StandardCharsets.UTF_8);
+        ) {
             RuntimeSingleton.getRuntimeServices().parse(br, file.getAbsolutePath());
         } catch (ParseException e) {
             throw new ValidationException(e);

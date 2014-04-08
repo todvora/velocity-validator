@@ -24,7 +24,7 @@ public class RegexValidatorImplTest {
     public void testCorrectTemplate() {
         String file = this.getClass().getResource("/CorrectTemplate.vm").getFile();
         try {
-            validator.validate(file);
+            validator.validate(new File(file));
         } catch (Exception e) {
             Assert.fail("Should not throw exception");
         }
@@ -33,6 +33,6 @@ public class RegexValidatorImplTest {
     @Test(expected = ValidationException.class)
     public void testWrongForeach() throws Exception {
         String file = this.getClass().getResource("/WrongForeachTemplate.vm").getFile();
-        validator.validate(file);
+        validator.validate(new File(file));
     }
 }
