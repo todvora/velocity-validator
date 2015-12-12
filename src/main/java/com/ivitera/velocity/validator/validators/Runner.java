@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Runner {
@@ -26,16 +27,21 @@ public class Runner {
 
 
     public boolean run() throws FileNotFoundException, InitializationException {
+        List<File> files = new ArrayList<>();
 
         if(verbose) {
             log.info("verbose mode is ON");
         }
 
-        List<File> files = PathSearcher.getFileListing(baseDir, new FileFilter() {
-            public boolean accept(File file) {
-                return file.getAbsolutePath().endsWith(".vm");
-            }
-        });
+        if (baseDir != null && isVelocityFile(baseDir)) {
+            files.add(baseDir);
+        } else {
+            files = PathSearcher.getFileListing(baseDir, new FileFilter() {
+                public boolean accept(File file) {
+                    return isVelocityFile(file);
+                }
+            });
+        }
 
         try {
             ValidatorsService.init(configFile);
@@ -82,4 +88,9 @@ public class Runner {
         }
         return f.getAbsolutePath().replace(basePath, "./");
     }
+
+    private boolean isVelocityFile(File file) {
+        return file.isFile() && file.getAbsolutePath().endsWith(".vm");
+    }
 }
+
