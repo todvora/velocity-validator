@@ -1,0 +1,8 @@
+/target/
+velocity.log
+
+
+# Eclipse project files
+.classpath
+.project
+.settings/

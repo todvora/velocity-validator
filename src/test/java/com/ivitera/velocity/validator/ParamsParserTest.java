@@ -1,7 +1,10 @@
 package com.ivitera.velocity.validator;
 
 
+import java.io.File;
+
 import com.ivitera.velocity.validator.exceptions.InputParamsException;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,8 +16,8 @@ public class ParamsParserTest {
         ParamsParser paramsParser = new ParamsParser(strings);
         paramsParser.parse();
 
-        Assert.assertEquals("data/templates", paramsParser.getBaseDirFile().getPath());
-        Assert.assertEquals("regex.conf", paramsParser.getConfigFile().getPath());
+        assertPathsEqual("data/templates", paramsParser.getBaseDirFile());
+        assertPathsEqual("regex.conf", paramsParser.getConfigFile());
         Assert.assertTrue(paramsParser.isVerbose());
     }
 
@@ -24,13 +27,19 @@ public class ParamsParserTest {
         ParamsParser paramsParser = new ParamsParser(strings);
         paramsParser.parse();
 
-        Assert.assertEquals("data/templates", paramsParser.getBaseDirFile().getPath());
-        Assert.assertEquals("regex.conf", paramsParser.getConfigFile().getPath());
+        assertPathsEqual("data/templates", paramsParser.getBaseDirFile());
+        assertPathsEqual("regex.conf", paramsParser.getConfigFile());
         Assert.assertTrue(paramsParser.isVerbose());
     }
 
     @Test(expected = InputParamsException.class)
     public void incorrectParams() throws InputParamsException {
         new ParamsParser(new String[]{"-nonsense"}).parse();
+    }
+    
+    private static void assertPathsEqual(String expected, File actual)
+    {
+    	File expectedFile = new File(expected);
+    	Assert.assertEquals(expectedFile.getPath(), actual.getPath());
     }
 }
